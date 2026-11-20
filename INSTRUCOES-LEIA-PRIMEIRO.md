@@ -1,31 +1,44 @@
-# Meus Sonhos & Metas — versão 7
+# Meus Sonhos & Metas — versão 8
 
-Atualização para o seu **mesmo site do GitHub**, com seis áreas: Agenda de hoje, Calendário de hábitos, Meu diário, Caderno bíblico, Mural dos sonhos e Relatórios. Mantém o login, o perfil, o cronômetro de estudos, as metas antigas, a rotina e o planner de leitura bíblica.
+Atualização corretiva para o MESMO site GitHub Pages e a MESMA conta Firebase.
 
-## Antes de publicar
+## Corrigido
 
-1. **Abra o site atual**, entre em sua conta e vá em **Ajustes → Baixar meu backup completo**. Guarde o arquivo JSON no computador e, se possível, em outro lugar seguro. O ZIP não é uma cópia dos seus dados atuais do Firebase.
-2. Guarde uma cópia da versão anterior do código (ZIP v6/v5 ou use o histórico de commits do GitHub).
-3. Extraia este ZIP. Entre no repositório `jehfiuza4-star/meus-sonhos-e-metas` e escolha **Adicionar arquivo → Carregar arquivos**. Selecione os arquivos **DENTRO** da pasta extraída e confirme as alterações na ramificação `main` (principal). Não publique o ZIP fechado.
-4. Aguarde o GitHub Pages publicar, abra `https://jehfiuza4-star.github.io/meus-sonhos-e-metas/` e use Ctrl+Shift+R para atualizar.
-5. Entre com **a sua conta Firebase atual**, sem criar outro projeto. Teste um hábito, uma anotação e uma atividade na agenda. Saia e entre para verificar a persistência.
-6. Vá em **Ajustes → Baixar meu backup completo**. A nova exportação tem `version: 7` e inclui `extras` com os novos dados. Baixe um JSON após testar, abra o arquivo e confira se contém `extras`.
+- O cartão inteiro de uma meta agora é clicável e tem o botão **Abrir minha meta →**.
+- Ao abrir, a meta ganha uma **página própria** com cronômetro, registro manual de minutos, histórico, calendário e edição.
+- A tela inicial tem atalhos bem visíveis **Minha foto e meu perfil** e **Ler a Bíblia completa**.
+- Em **Meu perfil**, você pode escolher a fotografia no seletor visível; a imagem é reduzida e salva no documento privado do seu usuário no Firestore.
+- O **Leitor bíblico** permite escolher os 66 livros e os capítulos e ler diretamente no aplicativo, usando traduções livres retornadas pela Midvash API.
 
-## Privacidade e custos
+## Limitação importante da Bíblia
 
-Os registros continuam dentro de `/users/{uid}/data/{docId}` e seguem as regras privadas que você já publicou para esse caminho. Os dados pessoais, fotos e anotações **não** devem ser enviados aos arquivos públicos do GitHub. O aplicativo usa a mesma conta do Firebase; não exige um novo projeto ou assinatura adicional sob os limites gratuitos.
+A edição **Almeida 1911 com ortografia modernizada**, que foi discutida anteriormente, **ainda não está embutida**, pois não foi possível obter e verificar os arquivos reutilizáveis dessa edição. Este leitor oferece:
 
-## Backups: limites importantes
+1. **Almeida de 1911 original**, domínio público, texto tradicional (sem modernização ortográfica).
+2. **Bíblia Livre**, alternativa de leitura livre, diferente da Almeida de 1911.
 
-O banco de dados **não substitui** uma cópia independente. A opção de backup automático no Chrome/Edge só grava em arquivo externo enquanto o site estiver aberto e com permissão. No iPhone, baixe arquivos JSON manualmente. As cópias do navegador podem desaparecer ao limpar os dados do Safari. Use também `LEITOR-DE-BACKUP-OFFLINE.html` para consultar os dados do backup sem acessar o site. Os backups JSON não são criptografados: guarde-os em local privado e não compartilhe. Os registros de diário, caderno e agenda são divididos em documentos por mês; o mural é separado por ano, para reduzir o risco de atingir o limite por documento do Firestore.
+Os capítulos são consultados em `https://api.midvash.com/v1/` (documentação: https://api.midvash.com/docs), com indicação de autoria/licença fornecida pela API. **É necessário ter internet para abrir um capítulo novo.** Capítulos já abertos podem permanecer temporariamente disponíveis no navegador. A conexão real com a API deve ser verificada no site publicado; os testes locais usaram respostas simuladas.
 
-### Comportamento das novas páginas
+## Para instalar sem perder seus dados
 
-- **Agenda:** compromissos adicionados manualmente e atividades programadas das metas, da rotina e do planner bíblico. Marque os itens diretamente no dia escolhido.
-- **Hábitos:** escolha dias pares, ímpares, dias da semana, todos os dias ou quantidade semanal. Clique no dia desejado para registrar. A frequência semanal funciona como uma meta de quantidade, não como bloqueio de outros dias.
-- **Diário:** textos e uma fotografia opcional por registro. A imagem é reduzida e salva na conta; uma imagem não aparece no código público.
-- **Caderno bíblico:** notas, referências de versículos e reflexões próprias. O texto integral da Bíblia não foi incluído nesta versão por pendência de confirmação de licença de edição digital.
-- **Mural:** fotografia opcional para um sonho, com categorias e ano.
-- **Relatórios:** calculados a partir de metas, registros de estudo, hábitos, rotinas e leituras; não são conteúdo público.
+1. Entre no site atual, em sua conta, e **baixe um backup completo em Ajustes**. Guarde o arquivo JSON fora do navegador.
+2. **Baixe este ZIP e extraia** no computador.
+3. Acesse o repositório existente em `https://github.com/jehfiuza4-star/meus-sonhos-e-metas`.
+4. Use **Adicionar arquivo → Carregar arquivos** e selecione **todos os 15 arquivos desta pasta**, não o ZIP nem a pasta inteira.
+5. Confirme as alterações na ramificação `main`.
+6. Abra `https://jehfiuza4-star.github.io/meus-sonhos-e-metas/` e atualize com **Ctrl+Shift+R** no computador.
+7. Teste abrir uma meta antiga, a foto do perfil e a leitura de um capítulo como João 3.
+8. Teste sair e entrar novamente; confira se sua meta, seus minutos e sua foto permanecem.
 
-Se usar dois dispositivos ao mesmo tempo, aguarde terminar a sincronização antes de editar o mesmo item no outro aparelho. Para um backup realmente independente, baixe o JSON completo periodicamente e teste a restauração numa cópia separada.
+Não substitua o código de regras do Firestore, não crie um projeto Firebase novo e não compartilhe seus dados de login. O código do app continua usando os mesmos documentos `users/{uid}`, `users/{uid}/data/app`, `users/{uid}/data/...` e `users/{uid}/reading/{ano}`. O ZIP contém apenas arquivos públicos do aplicativo; não contém os dados pessoais da sua conta.
+
+## Testes executados
+
+- Abertura de meta a partir de cartão e botão específico
+- Registro de 30 minutos
+- Acesso e atualização da foto de perfil
+- Leitor bíblico com simulação de resposta de capítulos
+- Preservação de dados em arquivo de backup v8
+- Separação de dados entre duas contas em ambiente simulado
+
+Observação: testes locais não substituem testes no Firebase real nem confirmam disponibilidade futura da API bíblica.
