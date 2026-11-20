@@ -1,0 +1,31 @@
+(()=>{'use strict';
+const shell=document.getElementById('authShell'),app=document.getElementById('appShell'),bottom=document.getElementById('mobileNav'),message=document.getElementById('authMessage'),form=document.getElementById('authForm'),submit=document.getElementById('authSubmit');
+let mode='signin', auth=null,db=null,uid=null,goalQueue=Promise.resolve(),readingQueues=new Map();
+const msg=(t,ok=false)=>{message.textContent=t;message.classList.toggle('ok',ok)};
+const authErrors={'auth/email-already-in-use':'Este e-mail já está cadastrado. Tente entrar na sua conta.','auth/invalid-email':'Digite um e-mail válido.','auth/weak-password':'Crie uma senha mais forte (pelo menos 6 caracteres).','auth/invalid-credential':'E-mail ou senha incorretos.','auth/too-many-requests':'Muitas tentativas. Tente novamente mais tarde.','auth/network-request-failed':'Sem conexão. Confira sua internet.','permission-denied':'Acesso negado pelo Firebase. Verifique as regras do Firestore.'};
+const explain=e=>authErrors[e.code]||'Não foi possível concluir a ação: '+(e.message||'erro desconhecido');
+function showAuth(){app.hidden=true;bottom.hidden=true;shell.hidden=false;uid=null;window.appApi.end()}
+function showApp(){app.hidden=false;bottom.hidden=false;shell.hidden=true}
+function loading(t){msg(t,true);submit.disabled=true}
+function ready(){submit.disabled=false}
+function tab(next){mode=next;let reg=mode==='signup';document.getElementById('modeSignin').classList.toggle('active',!reg);document.getElementById('modeSignup').classList.toggle('active',reg);document.getElementById('authHeading').textContent=reg?'Comece sua jornada':'Bem-vinda de volta';document.getElementById('authIntro').textContent=reg?'Crie sua conta e guarde suas metas em segurança.':'Entre com seu e-mail e senha para acessar suas metas.';submit.textContent=reg?'Criar minha conta':'Entrar na minha conta';document.getElementById('authPassword').setAttribute('autocomplete',reg?'new-password':'current-password');msg('')}
+document.getElementById('modeSignin').addEventListener('click',()=>tab('signin'));
+document.getElementById('modeSignup').addEventListener('click',()=>tab('signup'));
+const config=window.MEUS_SONHOS_FIREBASE;
+if(!config?.apiKey||config.apiKey.includes('COLE_')||!config.projectId||config.projectId.startsWith('SEU-')){msg('O aplicativo privado ainda precisa ser conectado ao seu projeto Firebase. Veja o arquivo INSTRUCOES-LEIA-PRIMEIRO.md.');submit.disabled=true;document.getElementById('forgotPassword').disabled=true;return}
+if(!window.firebase){msg('Não conseguimos carregar os serviços do Firebase. Verifique a internet.');submit.disabled=true;return}
+try{firebase.initializeApp(config);auth=firebase.auth();db=firebase.firestore();auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL).catch(e=>msg(explain(e)));}catch(e){msg('Configuração inválida do Firebase: '+e.message);submit.disabled=true;return}
+const store=()=>db.collection('users').doc(uid);
+const deepCopy=x=>JSON.parse(JSON.stringify(x));
+function syncLabel(label,error=false){const el=document.getElementById('syncStatus');if(!el)return;el.hidden=false;el.classList.toggle('error',error);el.textContent=label;clearTimeout(syncLabel.timer);syncLabel.timer=setTimeout(()=>el.hidden=true,2300)}
+function cloudError(e){syncLabel('Erro ao salvar na nuvem',true);msg(explain(e));const toast=document.getElementById('toast');toast.textContent='Não foi possível salvar na nuvem. Confira conexão e regras.';toast.hidden=false;setTimeout(()=>toast.hidden=true,5000)}
+window.firebaseGateway={
+ saveGoals(goals){if(!uid)return;syncLabel('Salvando na nuvem…');const owner=uid,snapshot=deepCopy(goals);goalQueue=goalQueue.catch(()=>{}).then(async()=>{if(uid!==owner)return;await db.collection('users').doc(owner).collection('data').doc('app').set({goals:snapshot,updatedAt:firebase.firestore.FieldValue.serverTimestamp()});syncLabel('Salvo na nuvem ✓');}).catch(cloudError);},
+ async loadReading(year){if(!uid)throw Error('Sessão encerrada');const snap=await store().collection('reading').doc(String(year)).get();return snap.exists?snap.data():{done:{},notes:{}};},
+ saveReading(year,state){if(!uid)return;syncLabel('Salvando leitura…');const owner=uid,copy=deepCopy(state),prev=readingQueues.get(year)||Promise.resolve();const next=prev.catch(()=>{}).then(async()=>{if(uid!==owner)return;await db.collection('users').doc(owner).collection('reading').doc(String(year)).set(copy);syncLabel('Leitura salva ✓')}).catch(cloudError);readingQueues.set(year,next)},
+ logout(){auth.signOut().catch(e=>msg(explain(e)))}
+};
+form.addEventListener('submit',async ev=>{ev.preventDefault();const email=document.getElementById('authEmail').value.trim(),password=document.getElementById('authPassword').value;loading(mode==='signup'?'Criando sua conta…':'Entrando na sua conta…');try{if(mode==='signup')await auth.createUserWithEmailAndPassword(email,password);else await auth.signInWithEmailAndPassword(email,password)}catch(e){msg(explain(e))}finally{ready()}});
+document.getElementById('forgotPassword').addEventListener('click',async()=>{const email=document.getElementById('authEmail').value.trim();if(!email){msg('Digite seu e-mail para receber o link de redefinição de senha.');return}try{await auth.sendPasswordResetEmail(email);msg('Se o e-mail estiver cadastrado, você receberá as instruções de redefinição.',true)}catch(e){msg(explain(e))}});
+auth.onAuthStateChanged(async user=>{if(!user){showAuth();msg('');return}try{loading('Carregando suas metas privadas…');uid=user.uid;const snap=await store().collection('data').doc('app').get();if(!auth.currentUser||auth.currentUser.uid!==user.uid)return;await window.appApi.begin(user,snap.exists?snap.data().goals:[]);showApp();msg('');}catch(e){showAuth();msg('Não foi possível abrir sua conta: '+explain(e))}finally{ready()}},e=>{showAuth();msg(explain(e))});
+})();
