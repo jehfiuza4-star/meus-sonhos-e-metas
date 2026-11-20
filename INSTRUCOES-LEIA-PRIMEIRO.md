@@ -1,33 +1,36 @@
-# Meus Sonhos & Metas — versão 4, conectada ao Firebase
+# Meus Sonhos & Metas — versão 5
 
-Esta versão já tem **as configurações do seu projeto Firebase Web** preenchidas no arquivo `firebase-config.js`.
-Não é necessário copiar/colar o código de configuração novamente. Não compartilhe senhas pessoais.
+Atualização do **mesmo site** já publicado no GitHub Pages, com novas funcionalidades:
 
-## Importante antes de enviar
+- Metas com agenda: todos os dias, dias pares, ímpares, dias da semana ou quantidade semanal; marcação por data no calendário.
+- Rotina diária: criar atividades recorrentes e marcar as tarefas concluídas de cada dia.
+- Plano bíblico e login privado preservados.
+- Cópias automáticas no navegador (histórico das últimas oito alterações), backup completo manual em JSON e **backup automático em arquivo local opcional**, depois de você escolher e autorizar o arquivo no Chrome ou Edge do computador.
+- Leitor `LEITOR-DE-BACKUP-OFFLINE.html` para consultar seus dados sem depender do site. Guarde este leitor junto com os backups JSON no seu computador.
 
-1. **Backup:** abra o site antigo e, se você já cadastrou alguma meta, use `Ajustes > Exportar` para guardar o arquivo de backup em local privado. Se nunca cadastrou metas, pule.
-2. **Login:** você já ativou `E-mail/senha` no Firebase Authentication. O link de login sem senha não precisa ser ativado.
-3. **Firestore:** as regras publicadas precisam ser iguais às contidas no `firestore.rules` (restringem as coleções `users/{uid}/data` e `users/{uid}/reading` à pessoa conectada com o mesmo UID). Não habilite modo de teste ou regras abertas.
-4. **Site:** publique os arquivos extraídos **dentro do mesmo repositório GitHub** `meus-sonhos-e-metas`. **Não publique o ZIP diretamente e não crie outro repositório.**
-5. Se o GitHub perguntar se quer substituir `index.html`, `icon-192.png` etc., confirme. Envie também todos os arquivos novos (`firebase-config.js`, `firebase-auth.js`, `plano-biblico.js`, `firestore.rules`, etc.). O `index.html` e os arquivos JS precisam estar na raiz do repositório, não dentro de outra pasta.
-6. Espere a nova versão do site aparecer (o mesmo endereço `https://jehfiuza4-star.github.io/meus-sonhos-e-metas/`). Atualize o Safari se necessário.
-7. Na tela inicial do app, escolha **Criar conta**, crie seu login com seu próprio e-mail e uma senha forte. Em seguida crie uma meta e marque uma leitura do plano bíblico. Espere aparecer **Salvo na nuvem ✓** e confira que os dados aparecem ao entrar novamente.
-8. Teste a privacidade com outra conta de e-mail: ela não deve enxergar as metas nem as marcações da primeira.
-9. Se o login retornar erro de domínio não autorizado, abra `Firebase > Authentication > Configurações > Domínios autorizados` e inclua **`jehfiuza4-star.github.io`** (somente o domínio, sem `https://` nem o caminho).
-10. Se existiam metas no aplicativo antigo, faça login na conta nova e, em **Ajustes**, use **Importar** com o backup guardado. **Nunca** envie o backup JSON ao GitHub público.
+## Antes de publicar
 
-## O que já está disponível
-- Tela de acesso para cada conta, com recuperação de senha por e-mail.
-- Metas por categoria e ano, com edição, progresso, conclusão, painéis e conquistas.
-- Planner bíblico com 52 semanas × 7 leituras do arquivo fornecido, marcação diária e anotações, com dias extras de revisão para completar o ano civil.
-- Salvamento das metas e leituras no Cloud Firestore por usuário (após login e regras aplicadas).
-- Ícones e manifest para adicionar o aplicativo à tela inicial do celular.
+1. Entre na versão atual e baixe um backup da(s) meta(s) que já registrou em **Ajustes → Exportar**. Esse backup antigo guarda só metas, mas pode ser importado pela nova versão.
+2. Guarde uma cópia deste ZIP em um lugar seguro.
+3. Entre no repositório GitHub já existente `meus-sonhos-e-metas`, selecione **Adicionar arquivo → Carregar arquivos**, e envie os arquivos desta pasta já extraída (não o ZIP). Envie os arquivos diretamente na raiz, sem criar subpasta. Confirme a alteração na ramificação `main` ("principal").
+4. O GitHub Pages continuará usando o mesmo endereço `https://jehfiuza4-star.github.io/meus-sonhos-e-metas/`. Aguarde a publicação e atualize a página com Ctrl+Shift+R.
+5. Entre com sua **conta atual** do Firebase. Não crie outra conta se já tem uma.
+6. Teste com uma meta de exemplo, marcando uma data no calendário, e uma atividade na rotina. Confira se continuam salvas ao sair e entrar novamente.
+7. Vá em **Ajustes → Baixar meu backup completo** para gerar seu primeiro JSON completo. Guarde em outra pasta e, se possível, em outra unidade/serviço. Para automatizar em arquivo no **Chrome ou Edge para computador**, clique em **Ativar** ao lado de Backup automático em arquivo e escolha um JSON em pasta privada. O arquivo será atualizado quando houver mudanças e o site estiver aberto, enquanto a permissão estiver ativa. O Safari do iPhone não oferece esse recurso de gravação automática em arquivo, então faça downloads manuais periódicos.
+8. Para ver os dados mesmo sem acesso ao site, abra o arquivo `LEITOR-DE-BACKUP-OFFLINE.html` diretamente no computador e selecione seu arquivo de backup JSON.
 
-## Avisos de segurança
+## Cuidados importantes
 
-- O **site e seus arquivos continuam públicos no GitHub Pages**. Somente os dados do Firestore ficam protegidos por autenticação e pelas regras.
-- Os valores de `firebase-config.js` são identificadores destinados ao aplicativo web, e não credenciais administrativas ou senhas. Não publique chaves privadas nem dados pessoais.
-- As regras **não fazem backup por si só**. Mantenha cópias pessoais e seguras de informações importantes.
-- O sistema não foi testado com uma conta real no seu Firebase nesta conversa: faça o teste de dois usuários antes de cadastrar dados importantes.
-- O plano Firebase Spark tem cotas. Não mude para o plano Blaze sem avaliar custos.
-- Este plano bíblico segue as referências do PDF enviado; algumas podem conter erros no original.
+- O Firebase e o GitHub são serviços distintos. A nuvem salva os dados da conta, mas não é um backup totalmente independente de serviços externos.
+- Os backups automáticos **dentro do navegador** não são recuperáveis se o site/origem desaparece ou se os dados do navegador forem apagados. Somente o JSON exportado ou o arquivo automático **fora do navegador** continua independente do site.
+- O JSON não tem senha/criptografia. **Proteja o arquivo** usando pasta privada, disco criptografado ou arquivo criptografado.
+- O botão "Ativar" de backup automático no computador depende de navegador compatível. Pode ser necessário autorizar novamente após reiniciar.
+- A cópia automática em arquivo não acontece com o site fechado. Não é um serviço de backup programado 24 horas por dia.
+- No Firebase Firestore, continuam valendo as regras já publicadas para `/users/{uid}/data/{docId}` e `/users/{uid}/reading/{year}`. As rotinas ficam em `/users/{uid}/data/routines`, não precisa alterar suas regras.
+- O site hospedado no GitHub continua público no nível dos arquivos HTML/JS, mas dados autenticados ficam separados pelo UID em Firestore.
+- Não publique senhas, tokens privados ou arquivos de backup contendo informações pessoais no repositório.
+- Se usar o app em dois dispositivos ao mesmo tempo, espere cada alteração sincronizar antes de editar no outro.
+
+## Estrutura essencial
+
+`index.html`, `firebase-auth.js`, `firebase-config.js`, `backup-manager.js`, `plano-biblico.js`, `icon-192.png`, `icon-512.png`, `manifest.webmanifest`, `sw.js`, `firestore.rules`, `LEITOR-DE-BACKUP-OFFLINE.html`, `INSTRUCOES-LEIA-PRIMEIRO.md`.
