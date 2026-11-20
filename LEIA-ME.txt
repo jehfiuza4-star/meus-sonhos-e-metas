@@ -1,0 +1,28 @@
+MEUS SONHOS & METAS — COMO PUBLICAR DE GRAÇA
+
+1. Entre no site https://github.com e crie uma conta gratuita.
+2. Entre na conta, clique em + > New repository (Novo repositório).
+3. Nome do repositório: meus-sonhos-e-metas
+4. Marque Public (Público) e clique em Create repository.
+5. Clique em "uploading an existing file" (ou Add file > Upload files).
+6. Envie os 5 arquivos presentes nesta pasta, SEM enviar a pasta inteira:
+   index.html, manifest.webmanifest, sw.js, icon-192.png, icon-512.png.
+7. Clique em Commit changes para salvar os arquivos.
+8. Vá a Settings > Pages > Build and deployment.
+9. Em Source, escolha "Deploy from a branch"; em Branch, selecione main e / (root); clique Save.
+10. Na página Pages aparecerá o endereço do seu app, normalmente:
+    https://SEU-USUARIO.github.io/meus-sonhos-e-metas/
+11. Abra esse endereço no Safari do iPhone.
+12. Toque em Compartilhar > Adicionar à Tela de Início > Adicionar.
+
+IMPORTANTE
+- Esta é uma versão web instalada na tela inicial, não publicação pela App Store.
+- Os arquivos do app ficarão públicos no repositório gratuito, mas suas metas
+  pessoais NÃO são enviadas ao GitHub: ficam salvas no próprio navegador.
+- As metas não se sincronizam entre aparelhos ou navegadores.
+- Faça backups com frequência em Ajustes > Exportar. Antes de trocar de celular,
+  limpar dados do Safari ou remover o aplicativo, exporte suas metas.
+- Para restaurar em outro aparelho, entre em Ajustes > Importar e escolha seu arquivo.
+- Os serviços e menus podem mudar com o tempo.
+
+Esta versão não depende de Adalo nem exige assinatura mensal.
