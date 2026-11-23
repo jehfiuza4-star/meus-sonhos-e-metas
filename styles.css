@@ -4,3 +4,11 @@
 @media(max-width:760px){.sidebar{display:none}.main-shell{padding:20px 15px 100px}.header h1{font-size:29px}.grid,.grid3{grid-template-columns:1fr}.mobile-nav{position:fixed;bottom:0;left:0;right:0;display:flex;overflow:auto;gap:2px;z-index:65;background:#fffdfded;border-top:1px solid var(--line);padding:8px 6px calc(9px + env(safe-area-inset-bottom));box-shadow:0 -4px 30px #a1547511}.mobile-nav button{border:0;background:transparent;color:#906477;display:flex;flex:1 0 58px;flex-direction:column;align-items:center;gap:2px;font-size:10px;padding:7px 2px;border-radius:12px}.mobile-nav button.active{background:#fae8ef;color:#8e3d61}.mobile-nav .ni{font-size:20px}.hero-icon{display:none}.slide{min-height:235px}.form-grid{grid-template-columns:1fr}.reader-controls{align-items:stretch}.reader-controls .field{min-width:calc(50% - 10px)}.dialog{padding:23px 16px}}
 @media(min-width:761px){.mobile-nav{display:none}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+
+/* Ajustes pontuais sem alterar a identidade visual */
+#slideHost{width:min(100%,540px);margin-inline:auto}
+#slideHost .slide{min-height:390px}
+#slideHost .slide-image{object-fit:contain;background:#301b27}
+.verse-note-trigger{border:1px solid #e9cbd8;border-radius:8px;background:#fff1f6;color:#8f4265;padding:3px 6px;margin-right:8px;cursor:pointer;font-size:12px}
+.verse-note-trigger sup{font-size:12px}
+@media(max-width:760px){#slideHost{width:min(100%,350px)}#slideHost .slide{min-height:400px}}
