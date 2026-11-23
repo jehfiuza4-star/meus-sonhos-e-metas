@@ -1,0 +1,77 @@
+MEUS SONHOS & METAS — VERSÃO DE TESTES 2.0 🌷
+==========================================
+
+IMPORTANTE: Não substitua seu site antigo antes de testar esta versão.
+
+O QUE JÁ ESTÁ INCLUÍDO
+----------------------
+• Início com apresentação automática de fotografias e frases.
+• Meu perfil: foto, capa, nome e frase.
+• Minha rotina: atividades, tempo de referência, registros de duração,
+  fotos opcionais e porcentagem calculada por dia, sem limite de 100%.
+• Ler a Bíblia: sete traduções em português oferecidas legalmente pela API Midvash
+  (algumas só têm o Novo Testamento). Precisa de internet.
+• Plano bíblico: calendário anual sugerido e editável; dias destacados;
+  clique em leitura → capítulo inicial → próximo → marcar como concluída.
+  O dia 23/11/2026 está definido como Atos 15 e 16, como você pediu.
+• Minha biblioteca: upload de PDF/EPUB, leitura e retorno à última posição.
+  PDF.js e EPUB.js carregam de uma biblioteca online ao abrir os livros.
+• Caderno de anotações geral, mural dos sonhos, progresso e backup JSON.
+• Importação do backup JSON da versão anterior (metas, sessões e rotinas).
+  Campos antigos não convertidos ficam preservados em uma cópia dentro do backup.
+
+PRIVACIDADE E LIMITES
+--------------------
+Esta versão NÃO tem sincronização na nuvem, login nem privacidade por senha.
+O site é público, mas seus dados não são enviados ao GitHub: ficam no IndexedDB
+no navegador onde você acessa. Um segundo aparelho NÃO exibirá esses dados até
+você importar um backup ou configurarmos autenticação e armazenamento privado.
+Lembre-se de baixar backups regularmente. Fotos e PDFs podem deixar o arquivo
+JSON de backup grande. Não coloque arquivos particulares no repositório público.
+
+COMO TESTAR NO GITHUB SEM PERDER NADA
+-------------------------------------
+1) No site ANTIGO, abra Ajustes → Baixar meu backup completo → Baixar JSON.
+   Guarde esse arquivo em local privado e não envie ao GitHub.
+2) Entre em https://github.com/ e clique em + → New repository.
+3) Nomeie o repositório 'meus-sonhos-e-metas-teste', marque Public e crie-o.
+4) Extraia o ZIP fornecido. No repositório novo clique em 'Add file' →
+   'Upload files'. Envie index.html, styles.css, app.js e LEIA-PRIMEIRO.txt.
+   Todos devem ficar na RAIZ do repositório (não dentro de uma pasta).
+5) Clique em 'Commit changes'.
+6) Abra Settings → Pages → Source: Deploy from a branch → main → /(root)
+   → Save. Aguarde o GitHub publicar.
+7) Abra o link exibido em Settings → Pages (geralmente:
+   https://SEU-USUARIO.github.io/meus-sonhos-e-metas-teste/).
+8) Vá em Ajustes e backups → Restaurar um backup → escolha o JSON que
+   baixou no passo 1. Confira sua rotina e seus registros importados.
+9) Experimente registrar uma atividade, colocar uma foto, adicionar um PDF,
+   fechar o navegador e reabrir no MESMO dispositivo para conferir os dados.
+10) Quando estiver satisfeita e tiver os backups, poderemos pensar em
+    atualizar o site principal com segurança e habilitar nuvem privada.
+
+SE ALGO NÃO APARECER
+-------------------
+• Aguarde alguns minutos após publicar.
+• Teste em janela normal (não anônima), com espaço livre no navegador.
+• Se o leitor bíblico não abrir, confira a internet. Fonte: api.midvash.com.
+• Se o EPUB/PDF não abrir, verifique o arquivo, a internet e o navegador.
+• Fotos e livros privados não devem ser publicados manualmente no GitHub.
+
+NÃO É A MESMA BASE DE DADOS DO SITE ATUAL
+-----------------------------------------
+O site anterior utiliza login e Firebase. Esta versão de teste é independente,
+com importação por JSON. Os dados e as fotos NÃO sincronizam com a conta
+anterior nem entre dispositivos. Para isso haverá uma etapa de integração.
+
+FONTES DE TEXTOS BÍBLICOS
+------------------------
+API Midvash: https://api.midvash.com/pt-br
+Licenças e atribuições de cada tradução aparecem no leitor. NVI, NTLH,
+ARA e outras edições protegidas não são copiadas para o projeto.
+
+BIBLIOTECAS DE LEITURA
+----------------------
+PDF.js: https://mozilla.github.io/pdf.js/
+EPUB.js: https://github.com/futurepress/epub.js
+Elas carregam de CDNs públicas somente quando necessário.
