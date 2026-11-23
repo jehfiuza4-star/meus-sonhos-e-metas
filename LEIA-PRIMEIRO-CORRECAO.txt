@@ -1,0 +1,10 @@
+MEUS SONHOS & METAS — CORREÇÃO DE LOGIN E MENU
+
+1. NÃO substitua o site sem exportar backup em Ajustes e backups no computador.
+2. Esta versão recupera login/criação de conta e botão Sair usando o Firebase configurado no projeto.
+3. O menu do celular agora mostra TODAS as seções; deslize a barra inferior para os lados.
+4. Os dados textuais do aplicativo sincronizam via Firestore entre aparelhos com a mesma conta, após escolha explícita de qual versão preservar na primeira conexão.
+5. ATENÇÃO: imagens, PDFs e EPUBs guardados no IndexedDB não são transferidos pela nuvem; exporte backup com arquivos e importe no outro aparelho para esses conteúdos. Não apague os originais.
+6. Se o Firebase Authentication (e-mail/senha), Firestore ou regras de segurança não estiverem habilitados, o login/sync não funcionará até configurar o console Firebase.
+7. As regras em firestore.rules devem ser publicadas no Firebase Console. A configuração já existente firebase-config.js foi preservada.
+8. Nunca escolha sobrescrever dados sem antes guardar um backup. O site não foi publicado automaticamente no GitHub.
