@@ -50,7 +50,26 @@ function bibleBookOptions(current){return B.map(([name,slug])=>`<option value="$
 function bibleVersionsOptions(){return VERSIONS.map(([key,label])=>`<option value="${key}" ${S.bible.version===key?'selected':''}>${esc(label)}</option>`).join('')}
 function bibleControls(){return `<div class="reader-controls"><select aria-label="Tradução" id="bibleVersion" class="field" style="flex:2" title="Tradução">${bibleVersionsOptions()}</select><select aria-label="Livro" id="bibleBook" class="field book-select">${bibleBookOptions(bibleBook)}</select><input aria-label="Capítulo" class="field" id="bibleChapter" type="number" min="1" max="${B.find(x=>x[1]===bibleBook)?.[2]||150}" value="${bibleChapter}" style="max-width:85px"></div>`}
 function bibleView(){return `<div class="hero"><div><span class="caps">UM MOMENTO COM DEUS</span><h2>Leia a Bíblia com calma 📖</h2><p>Escolha livremente uma tradução disponível, um livro e um capítulo. A leitura do plano bíblico também abre aqui.</p></div><div class="hero-icon">🕊️</div></div><div class="section-head"><h2>Leitor da Bíblia</h2><span class="pill">7 traduções livres</span></div><div class="card">${bibleControls()}<div class="between" style="margin-bottom:14px"><button class="btn outline small" data-action="bible-prev">← Anterior</button><strong>${esc(bookName(bibleBook))} ${bibleChapter}</strong><button class="btn light small" data-action="bible-next">Próximo →</button></div><div class="bible-text" id="bibleContent"><p class="muted">Carregando texto bíblico…</p></div><div id="bibleCopyright" class="attribution"></div><div class="note" style="margin-top:17px">O texto bíblico usa uma fonte pública de traduções em domínio público ou com licença aberta. Requer conexão com a internet. A NVI, NTLH e outras traduções protegidas não podem ser copiadas integralmente para cá sem licença.</div><a class="btn outline small" target="_blank" rel="noopener noreferrer" href="https://www.bible.com/pt">Consultar outras traduções em plataforma autorizada ↗</a></div>`}
-function parseVerses(payload){let data=payload?.data||payload;let vv=data?.verses||data?.chapter?.verses||payload?.verses;if(Array.isArray(vv)){return vv.map((v,i)=>({n:v.verse||v.number||i+1,t:v.text||v.content||v.verseText||''}))}if(data?.text&&typeof data.text==='string')return [{n:'',t:data.text}];if(typeof data==='string')return [{n:'',t:data}];if(Array.isArray(data))return data.map((x,i)=>({n:x.verse||i+1,t:x.text||''}));return []}
+// A API Midvash devolve os versículos como strings, não como objetos.
+// Compatibilidade com respostas que tenham versículos em outros formatos.
+function parseVerses(payload){
+  const data=payload?.data??payload;
+  const verses=data?.verses??data?.chapter?.verses??payload?.verses;
+  if(Array.isArray(verses)){
+    const parsed=verses.map((v,i)=>{
+      if(typeof v==='string')return {n:i+1,t:v};
+      if(v&&typeof v==='object')return {
+        n:v.verse??v.number??i+1,
+        t:String(v.text??v.content??v.verseText??v.value??'')
+      };
+      return {n:i+1,t:''};
+    }).filter(v=>v.t.trim().length>0);
+    if(parsed.length)return parsed;
+  }
+  if(typeof data?.text==='string'&&data.text.trim())return [{n:'',t:data.text}];
+  if(typeof data==='string'&&data.trim())return [{n:'',t:data}];
+  return [];
+}
 async function loadBibleText(){let el=$('#bibleContent'),copyright=$('#bibleCopyright');if(!el)return;let myBook=bibleBook,myChapter=bibleChapter,myVersion=S.bible.version;el.innerHTML='<p class="muted">Carregando capítulo…</p>';copyright.textContent='';try{const controller=new AbortController();let tm=setTimeout(()=>controller.abort(),17000);let resp=await fetch(`https://api.midvash.com/v1/${encodeURIComponent(myVersion)}/${encodeURIComponent(myBook)}/${myChapter}`,{signal:controller.signal});clearTimeout(tm);if(!resp.ok)throw Error('Capítulo não encontrado nesta tradução.');let payload=await resp.json();if(section!=='biblia'&&section!=='plano')return;if(myBook!==bibleBook||myChapter!==bibleChapter||myVersion!==S.bible.version)return;let verses=parseVerses(payload);if(!verses.length)throw Error('Não foi possível interpretar o texto retornado.');el.innerHTML=verses.map(v=>`<p class="verse">${v.n?`<sup>${esc(v.n)}</sup>`:''}${esc(v.t)}</p>`).join('');copyright.textContent=payload?.meta?.copyright||payload?.copyright||'Créditos conforme licença da tradução.';el.scrollTop=0;let notice=payload?.meta?.versionNotice;if(notice)toast('Tradução solicitada indisponível; confira a versão exibida.');}catch(e){if(el){el.innerHTML=`<div class="empty"><span class="em">📖</span><strong>Não foi possível carregar o capítulo.</strong><p>${esc(e.message)} Confira sua conexão e tente novamente.</p><button class="btn light small" data-action="bible-retry">Tentar novamente</button></div>`}}}
 function setChapter(slug,chapter){let item=B.find(x=>x[1]===slug);if(!item)return;let c=Math.max(1,Math.min(item[2],Math.round(Number(chapter)||1)));bibleBook=slug;bibleChapter=c;S.bible.book=slug;S.bible.chapter=c;persist();if(section==='biblia')render();else{let t=$('#bibleContent');if(t)loadBibleText()}}
 function nextBible(delta){let i=B.findIndex(x=>x[1]===bibleBook);if(i<0)return;let n=bibleChapter+delta;if(n>B[i][2]){i=(i+1)%B.length;n=1}else if(n<1){i=(i-1+B.length)%B.length;n=B[i][2]}setChapter(B[i][1],n)}

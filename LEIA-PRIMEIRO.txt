@@ -75,3 +75,13 @@ BIBLIOTECAS DE LEITURA
 PDF.js: https://mozilla.github.io/pdf.js/
 EPUB.js: https://github.com/futurepress/epub.js
 Elas carregam de CDNs públicas somente quando necessário.
+
+CORREÇÃO DO LEITOR BÍBLICO — 23/11/2026
+----------------------------------------
+Corrigido o texto em branco no leitor e no plano bíblico: a API Midvash
+retorna a lista de versículos como textos (strings), e o leitor anterior
+esperava objetos com campo text. A mesma versão foi mantida; somente app.js
+foi alterado. Para atualizar o site já publicado: no GitHub, substitua
+o arquivo app.js do repositório por este novo. Não apague arquivos do site
+nem limpe os dados do navegador. Depois de publicar, atualize com Ctrl+F5.
+Se persistir, confira conexão, seleção de tradução e mostre a tela/erro.
