@@ -156,7 +156,7 @@ case 'note-trash':{let t=S.noteTrash||[];openDialog('<h2 id="dialogTitle">Lixeir
 case 'note-restore':{let n=(S.noteTrash||[]).find(n=>n.id===id);if(n){if(!noteFolders().some(f=>f.id===n.folder))n.folder='';S.notes.push(n);S.noteTrash=S.noteTrash.filter(n=>n.id!==id);await persist();closeDialog()}break}
 case 'note-print':await noteExport(false);break;
 case 'note-word':await noteExport(true);break;
-case 'dream-album':case 'dream-feelings':{let d=S.dreams.find(d=>d.id===id);if(d)dreamExtras(d,action==='dream-album'?'album':'feelings');break}
+case 'dream-album':case 'dream-feelings':{let d=S.dreams.find(d=>d.id===id);if(d)dreamExtras(d,name==='dream-album'?'album':'feelings');break}
 case 'dream-open':dreamDetail(S.dreams.find(d=>d.id===id));break;
 case 'dream-moment-new':{let d=S.dreams.find(d=>d.id===id);if(d)dreamMomentForm(d);break}
 case 'dream-moment-edit':{let [di,mi]=id.split('|'),d=S.dreams.find(d=>d.id===di),m=d?.moments?.find(m=>m.id===mi);if(m)dreamMomentForm(d,m);break}
