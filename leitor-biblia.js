@@ -41,5 +41,5 @@ document.addEventListener('click',e=>{const btn=e.target.closest('[data-reader]'
  if(action==='next'){if(chapter<books[bookIndex].chapters)setChapter(chapter+1);else if(bookIndex<65){bookIndex++;chapter=1;read()}}
  if(action==='retry')read();
 });
-window.ReaderBible={setup(x){api=x},view,_debug:{getState:()=>({bookIndex,chapter,version,pending,error}),setBook,setChapter}};
+window.ReaderBible={bookName:i=>books[i].name,open(i,c){bookIndex=i;chapter=c;read()},setup(x){api=x},view,_debug:{getState:()=>({bookIndex,chapter,version,pending,error}),setBook,setChapter}};
 })();
