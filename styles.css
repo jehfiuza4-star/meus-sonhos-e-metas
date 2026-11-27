@@ -31,3 +31,14 @@
 .study-page-controls{background:#ffffff90;border:1px solid #e8d8e8;border-radius:14px;padding:8px;margin:12px 0}
 .study-notebook select{border:1px solid #dbc8dc;border-radius:8px;padding:6px;background:#fffafd;color:#68465f}
 @media(max-width:600px){.study-paper-wrap{padding-left:30px;padding-right:10px}.study-paper-wrap:before{left:7px}.study-paper-header{font-size:9px;letter-spacing:0}.study-notebook #noteEditor{padding:12px 4px!important}}
+
+/* Caderno: acabamento lilás minimalista */
+.study-notebook{background:#eee8f7!important;border:1px solid #e1d7ef!important;padding:clamp(10px,1.5vw,22px)!important;border-radius:20px!important}
+.study-paper-wrap{width:100%;max-width:none;margin:16px auto;padding:clamp(18px,3vw,40px);border:1px solid #ded3ed;border-radius:14px;box-shadow:0 5px 20px #75608f12;box-sizing:border-box}
+.study-paper-wrap:before{display:none!important;content:none!important}
+.study-paper-header{color:#806b9e;border-bottom:1px solid #d9cce9;font-size:12px;letter-spacing:.7px;padding-bottom:14px}
+.study-notebook #noteEditor{width:100%!important;max-width:none!important;min-height:70vh!important;padding:24px 0!important;background-image:none!important;line-height:1.65}
+.study-paper-footer{color:#806b9e;border-color:#ded3ed}
+.study-page-controls{background:#f8f5fc;border-color:#ded3ed}
+.study-notebook #noteTitle,.study-notebook #notePageLabel,.study-notebook select{border-color:#dcd0eb;color:#65537e}
+@media(max-width:600px){.study-paper-wrap{padding:16px}.study-notebook #noteEditor{padding:16px 0!important}}
