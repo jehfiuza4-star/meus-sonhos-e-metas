@@ -17,3 +17,17 @@
 .account-bar{position:relative;z-index:70;background:#fff;border-bottom:1px solid var(--line);padding:8px 18px;display:flex;align-items:center;justify-content:flex-end;gap:14px;flex-wrap:wrap;color:var(--rose-dark);font-size:12px}.account-bar button,.account-link{background:#f7e7ee;border:0;border-radius:9px;padding:8px 12px;color:#823b5a;cursor:pointer}.login-screen{position:fixed;inset:0;z-index:999;background:linear-gradient(130deg,#fcf4f7,#fff9fa);display:grid;place-items:center;padding:20px;overflow:auto}.login-screen[hidden],.account-bar[hidden]{display:none!important}.login-card{width:min(100%,430px);background:white;border:1px solid #f0dce5;border-radius:22px;box-shadow:0 15px 45px #a1547520;padding:30px}.login-card h1{font:28px Georgia,serif;color:#823b5a}.login-card label{display:block;margin:12px 0 5px}.login-card input{width:100%;border:1px solid #e7ccd9;border-radius:10px;padding:11px}.login-switch{display:flex;gap:8px;margin:18px 0}.login-switch button{flex:1;padding:10px;border:1px solid #e7ccd9;border-radius:10px;background:white}.login-switch .selected,.account-primary{background:#af5a7b!important;color:white!important}.account-primary{width:100%;padding:12px;border:0;border-radius:11px;margin-top:16px;cursor:pointer}.account-tip{font-size:12px;color:#82747c}#accountMessage{color:#823b5a;min-height:20px}@media(max-width:760px){.mobile-nav{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start}.mobile-nav button{flex:0 0 72px}.account-bar{justify-content:center;padding:8px;font-size:11px}.account-bar button{padding:6px 9px}}
 
 [hidden]{display:none!important}
+
+/* Caderno de estudos */
+.study-notebook{background:linear-gradient(145deg,#f9edf4,#eee8fa 55%,#f2edf8)!important;border:1px solid #e5d5e8!important;padding:clamp(12px,3vw,30px)!important;border-radius:24px!important}
+.study-notebook #noteTools{background:#fff8fc!important;border-color:#e7d6e4!important}
+.study-notebook #noteTitle{background:#fffafc;color:#70475f;border:1px solid #e5cedd;border-radius:12px}
+.study-notebook #notePageLabel{background:#ffffffb8;border:1px solid #e4d4e5;margin:10px 0}
+.study-paper-wrap{position:relative;max-width:850px;margin:20px auto;padding:18px clamp(12px,3vw,32px) 14px clamp(30px,5vw,60px);border:1px solid #e1d4df;border-radius:6px 16px 16px 6px;box-shadow:4px 7px 18px #77536e22,inset 5px 0 8px #a68aa218;box-sizing:border-box}
+.study-paper-wrap:before{content:"";position:absolute;left:12px;top:18px;bottom:18px;width:12px;background:radial-gradient(circle at center,#b5a1bd 0 3px,#e8dce9 4px 5px,transparent 6px) center top/12px 34px repeat-y;pointer-events:none}
+.study-paper-header{display:flex;justify-content:space-between;gap:8px;color:#92718c;font-size:11px;letter-spacing:1px;border-bottom:1px solid #d9b9cb;padding:5px 0 12px}
+.study-notebook #noteEditor{border:0!important;box-shadow:none!important;margin:0!important;max-width:none!important;padding:20px 8px!important;min-height:65vh!important;box-sizing:border-box}
+.study-paper-footer{text-align:center;color:#a17c99;font-size:12px;padding:12px;border-top:1px solid #e2cbd9}
+.study-page-controls{background:#ffffff90;border:1px solid #e8d8e8;border-radius:14px;padding:8px;margin:12px 0}
+.study-notebook select{border:1px solid #dbc8dc;border-radius:8px;padding:6px;background:#fffafd;color:#68465f}
+@media(max-width:600px){.study-paper-wrap{padding-left:30px;padding-right:10px}.study-paper-wrap:before{left:7px}.study-paper-header{font-size:9px;letter-spacing:0}.study-notebook #noteEditor{padding:12px 4px!important}}
